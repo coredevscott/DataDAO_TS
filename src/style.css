@@ -770,13 +770,9 @@ video {
   margin-bottom: 0.25rem;
 }
 
-.my-8 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-}
-
-.mb-8 {
-  margin-bottom: 2rem;
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .ml-7 {
@@ -851,6 +847,10 @@ video {
   height: 15rem;
 }
 
+.h-7 {
+  height: 1.75rem;
+}
+
 .h-80 {
   height: 20rem;
 }
@@ -879,6 +879,10 @@ video {
   width: 1.5rem;
 }
 
+.w-7 {
+  width: 1.75rem;
+}
+
 .w-80 {
   width: 20rem;
 }
@@ -893,6 +897,10 @@ video {
 
 .min-w-\[110px\] {
   min-width: 110px;
+}
+
+.min-w-\[150px\] {
+  min-width: 150px;
 }
 
 .min-w-\[250px\] {
@@ -1063,6 +1071,16 @@ video {
 .bg-\[\#100E17\] {
   --tw-bg-opacity: 1;
   background-color: rgb(16 14 23 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#2C2D30\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(44 45 48 / var(--tw-bg-opacity));
+}
+
+.bg-\[\#404144\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(64 65 68 / var(--tw-bg-opacity));
 }
 
 .bg-\[\#4E44CE\] {
@@ -1426,6 +1444,11 @@ code {
 .hover\:translate-y-\[-5px\]:hover {
   --tw-translate-y: -5px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.hover\:bg-\[\#36373A\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(54 55 58 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-\[\#423AAF\]:hover {

@@ -21,19 +21,46 @@ function classNames(...classes: any) {
 
 export default function Navbar() {
   const [showModal, setShowModal] = useState<number>(0);
+  const [showEVMModal, setShowEVMModal] = useState<number>(0);
   const [isConnected, setIsConnected] = useState<number>(0);
 
-  const handleEVMWallet = async (): Promise<void> => {
-    if ((window as any).ethereum) {
+  const [chainType, setChainType] = useState<number>(0);
+
+  const handleMetamask = async (): Promise<void> => {
+    if ((window as any).ethereum?.isMetaMask) {
       let instance: any;
       instance = (window as any).ethereum;
 
       try {
         await instance.request({ method: "eth_requestAccounts" });
         setIsConnected(1);
+        setShowModal(0);
+        setShowEVMModal(0);
       } catch (error) {
         // Handle error
       }
+    }
+    else {
+      alert('Please install Metamask wallet');
+    }
+  };
+
+  const handleBitget = async (): Promise<void> => {
+    if ((window as any).bitkeep?.ethereum) {
+      let instance: any;
+      instance = (window as any).bitkeep?.ethereum;
+
+      try {
+        await instance.request({ method: "eth_requestAccounts" });
+        setIsConnected(1);
+        setShowModal(0);
+        setShowEVMModal(0);
+      } catch (error) {
+        // Handle error
+      }
+    }
+    else {
+      alert('Please install Bitget wallet');
     }
   };
 
@@ -47,14 +74,36 @@ export default function Navbar() {
               <div className='relative flex flex-col items-center justify-center w-full h-full text-white'>
                   <div className='relative w-full mx-8 sm:w-[540px] bg-gradient-to-r from-[#111937] to-[#0F2835] p-10 rounded-xl flex items-center flex-col justify-center'>
                       <XMarkIcon onClick={() => setShowModal(0)} className='absolute w-6 h-6 cursor-pointer top-3 right-3'/>
-                      <div className='mb-8 text-2xl font-bold text-left'>Solana Wallet Connect</div>
-                      <MyWallet />
-                      <div className='my-8 text-2xl font-bold text-left'>EVM Wallet Connect</div>
-                      {isConnected == 0 ?
-                        (<div className='text-sm py-3 px-5 hover:bg-[#423AAF] bg-[#4E44CE] rounded-md cursor-pointer font-semibold' onClick={() => {handleEVMWallet()}}>Connect EVM Wallet</div>) :
-                        (<div className='text-sm py-3 px-5 hover:bg-[#423AAF] bg-[#4E44CE] rounded-md cursor-pointer font-semibold'>EVM Wallet Connected</div>)
-                      }
+                      <div className='text-2xl font-bold text-left'>Select Chains</div>
+                      <div className="flex flex-row items-center justify-center gap-10 my-10">
+                        <label className="container">
+                          Solana
+                          <input type="radio" name="radio" onClick={() => {setChainType(1)}}></input>
+                          <span className="checkmark"></span>
+                        </label>
+                        <label className="container">
+                          EVM
+                          <input type="radio" name="radio" onClick={() => {setChainType(2)}}></input>
+                          <span className="checkmark"></span>
+                        </label>
+                      </div>
+                      {chainType == 1 && (<MyWallet />)} 
+                      {chainType == 2 && (<div className='py-4 px-5 hover:bg-[#423AAF] bg-[#4E44CE] rounded-md cursor-pointer font-semibold' style={{fontSize: "16px"}} onClick={() => {setShowEVMModal(1)}}>Select Wallet</div>)}
                     </div>        
+                </div>
+              </div>) : null}
+
+            {/* EVM wallet select */}
+            {showEVMModal == 1 ? (<div className='fixed fadeIn left-0 top-0 w-full h-full bg-transparent z-[1] backdrop-filter backdrop-blur-md'>
+              <div className='relative flex flex-col items-center justify-center w-full h-full text-white'>
+                  <div className='relative w-full mx-8 sm:w-[540px] bg-[#2C2D30] p-10 rounded-xl flex items-center flex-col justify-center'>
+                      <XMarkIcon onClick={() => setShowEVMModal(0)} className='absolute w-6 h-6 cursor-pointer top-3 right-3'/>
+                      <div className='text-2xl font-bold text-left'>Select Wallets</div>
+                      <div className='flex flex-col gap-5 my-10'>
+                        <div className='min-w-[250px] py-4 px-5 hover:bg-[#36373A] bg-[#404144] rounded-md cursor-pointer font-semibold flex flex-row gap-3 justify-center items-center' style={{fontSize: "16px"}} onClick={() => {handleMetamask()}}><img src="./img/metamask.png" className='w-7 h-7'></img>Connect Metamask</div>
+                        <div className='min-w-[150px] py-4 px-5 hover:bg-[#36373A] bg-[#404144] rounded-md cursor-pointer font-semibold flex flex-row gap-3 justify-center items-center' style={{fontSize: "16px"}} onClick={() => {handleBitget()}}><img src="./img/bitget.png" className='w-7 h-7'></img>Connect Bitget</div>
+                      </div>
+                    </div>     
                 </div>
               </div>) : null}
 
